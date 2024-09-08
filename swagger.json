@@ -1,0 +1,280 @@
+{
+    "openapi":"3.0.0",
+    "info":{
+        "description":"This is api for E-commers website",
+        "version":"__version__"
+    },
+    "tags":[
+        {
+            "name":"PUBLIC ROUTE",
+            "description":"Public Route for fetching data"
+        }
+    ],
+    
+    "paths":{
+              "/health":{
+                "summary" : "Testing health check",
+                "get":{
+                    "description":"Testing user for app",
+                    "tags":["Public ROUTE"],
+                    "responses":{
+                        "200":{
+                            "description":"Health check pass"
+                              }
+                                }
+                      }
+                         },
+                                   
+        "/productlist":{
+                         "summary" : "getting the list of products",
+                            "get":{
+                                  "description":"fetching product list",
+                                  "tags":["Public ROUTE"],
+                                 "responses":{
+                                      "200":{
+                                          "description":" data fetched"
+                                            }
+                                              }
+                                    }
+                                       },
+
+
+
+         "/category":{
+              "summary" : "getting the list of products category",
+                "get":{
+            "description":"fetching product's category list",
+            "tags":["Public ROUTE"],
+              "responses":{
+                 "200":{
+           "description":" data fetched"
+                       }
+                             }
+                     }
+                 },
+
+
+
+              "/brandlist":{
+                  "summary" : "getting the list of product's brands",
+                  "get":{
+                        "description":"fetching product  brand list",
+                        "tags":["Public ROUTE"],
+                      "responses":{
+                     "200":{
+                     "description":" data fetched"
+                         }
+                                    }
+                        }
+                         },
+
+
+        "/filter/:subcategory_name":{
+            "summary" : "getting the list of product by apply filter of subcategory_name and query param for product based on cost range and product type respectively",
+            "get":{
+                  "description":"fetching product list w.r.t subcategory_name and based on cost range",
+                  "tags":["Public ROUTE"],
+                  "parameters":[
+                    {
+                        "name":"subcategory_name",
+                        "in":"path",
+                        "required":true
+                        
+                    },
+                    {
+                        "name":" brand_name",
+                        "in":"query"
+                      
+                    },
+                    {
+                        "name":" hprice &lprice",
+                        "in":"query"
+                      
+                    },
+                    {
+                        "name":"product_type",
+                        "in":"query"
+                      
+                    }
+                ],
+                "responses":{
+               "200":{
+               "description":" data fetched"
+                   }
+                              }
+                  }
+                   },
+
+
+                 "/detail/:id":{
+                    "summary" : "getting the details of product by id",
+                    "get":{
+                          "description":"fetching product details w.r.t id",
+                          "tags":["Public ROUTE"],
+                          "parameters":[
+                            {
+                                "name":"id",
+                                "in":"query",
+                                "required":true
+                            }
+                          
+                        ],
+                        "responses":{
+                       "200":{
+                       "description":" product detail fetched"
+                           }
+                                      }
+                          }
+
+
+
+                 },
+
+                 "/productDetails":{
+                    "summary":"getting the details of product by posted category id",
+                    "post":{
+                        "description":"fetching product list wrt posted id number",
+                        "tags":["PUBLIC ROUTE"],
+                        "parameters":[
+                            {
+                                "name":"id",
+                                "in":"path"
+                                
+                            },
+                            {
+                                "name":"category_id",
+                                "in":"path",
+                                "required":true
+                            }
+                        ],
+                        "responses":{
+                            "200":{
+                                "description":"product list with detail"
+                            }
+                        }
+        
+                    }
+                },
+                "/placeOrder":{
+                    "summary":"placing order",
+                    "post":{
+                        "description":"creating the order product list",
+                        "tags":["PUBLIC ROUTE"],
+                        "requestBody":{
+                            "required":true,
+                            "content":{
+                                "application/json":{
+                                    "schema":{
+                                        "type":"object",
+                                        "id":"string"
+                                    },
+                                    "example":{
+                                        "name": "mannat",
+                                        "email": "mannat@gmail.com",
+                                        "address": "612B jbp",
+                                        "phone": 9934647657,
+                                        "cost": 1000,
+                                        "menuItem": [
+                                            1,3,12
+                                        ],
+                                        "status": "Pending"
+                                    }
+                                }
+                            }
+                        },
+                        "responses":{
+                            "200":{
+                                "description":"order placing"
+                            }
+                        }
+        
+                    }
+                },
+                "/orders":{
+                    "summary":"check the order list ",
+                    "get":{
+                        "description":"checking the order list of product by email ",
+                        "tags":["PUBLIC ROUTE"],
+                        "parameters":[
+                            {
+                                "name":"email",
+                                "in":"path",
+                                "required":true
+                            }
+                          
+                        ]
+                       
+                         },
+                 "responses":{
+                            "200":{
+                            "description":"orders"
+                            }
+                        }
+        
+                    },
+                "/updateOrder":{
+                    "summary":"updating order list ",
+                    "put":{
+                        "description":"update the status ,cost,address of existing order ",
+                        "tags":["PUBLIC ROUTE"],
+                        "requestBody":{
+                            "required":true,
+                            "content":{
+                                "application/json":{
+                                    "schema":{
+                                        "type":"object",
+                                        "id":"string"
+                                    },
+                                    "example":{
+                                        "_id":"66c3268fa3b23f39d4c9f5d6",
+                                        "status": "Pending"
+                                    }
+                                }
+                            }
+                        },
+                        "responses":{
+                            "200":{
+                                "description":"order updated"
+                            }
+                        }
+        
+                    }
+                },
+                "/deleteOrder":{
+                    "summary":"remove order from order list",
+                    "delete":{
+                        "description":"delete the selected order wrt to id ",
+                        "tags":["PUBLIC ROUTE"],
+                        "requestBody":{
+                            "required":true,
+                            "content":{
+                                "application/json":{
+                                    "schema":{
+                                        "type":"object",
+                                        "id":"string"
+                                    },
+                                    "example":{
+                                        "_id":"66c3268fa3b23f39d4c9f5d6"
+                                        
+                                    }
+                                }
+                            }
+                        },
+                        "responses":{
+                            "200":{
+                                "description":"deleted order"
+                            }
+                        }
+        
+                    }
+                }
+            }
+
+        }
+
+
+     
+ 
+
+
+             
